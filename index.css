@@ -8,5 +8,5 @@ body {
   width: 100vw;
   height: 100px;
   pointer-events: none;
-  box-shadow: 0 -20px; 50px; 10px rgba(0, 255, 0, 0.5);
+  box-shadow: 0 -20px 50px 10px rgba(0, 255, 0, 0.5);
 }
