@@ -20,10 +20,10 @@ h1 {
   z-index: 1;
   font-size: 60px;
   opacity: 0;
-  animation: fadeThenSlide 2.5s ease-in forwards;
+  animation: fadeIn 1s ease-in forwards;
 }
 
-@keyframes fadeThenSlide {
+@keyframes fadeIn {
   from {
     opacity: 0;
   }
