@@ -46,7 +46,7 @@ h1 {
   transform: translateY(100%);
   opacity: 0;
 
-  animation slide-up 0.6s ease-out 1s forwards;
+  animation: slide-up 0.6s ease-out 1s forwards;
 }
 
 @keyframes slide-up {
