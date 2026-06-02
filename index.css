@@ -134,13 +134,13 @@ button:hover {
   transform: scale(1.1);
 }
 
-ai-response {
+#ai-response {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   max-width: 600px;
-  padding: 16px, 20px;
+  padding: 16px 20px;
   color: white;
   font-family: "lexend", sans-serif;
   text-align: center;
@@ -151,7 +151,7 @@ ai-response {
   transition: opacity 0.3s ease-in-out;
 }
 
-#ai-response-visible {
+#ai-response.visible {
   opacity: 1;
 }
 
