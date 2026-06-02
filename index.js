@@ -7,8 +7,6 @@ async function ask(message) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ message }),
   });
-
-  // You may want to handle non-OK here, but basic version:
   return res.json();
 }
 
@@ -59,13 +57,9 @@ form.addEventListener("submit", async function (event) {
     const data = await ask(prompt);
     console.log("Backend response:", data);
 
-    // Adjust this once you know your backend’s exact response shape.
-    // For now, try a few common fields and fall back to JSON:
-    const aiText =
-      data.reply ||
-      data.content ||
-      data.message ||
-      JSON.stringify(data, null, 2);
+    // ✅ Use the actual field from your backend:
+    // Backend response: { success: true, response: 'Hello! How can I assist you today?', ... }
+    const aiText = data.response || "No response.";
 
     responseBox.textContent = aiText;
   } catch (err) {
