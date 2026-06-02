@@ -63,7 +63,7 @@ form.addEventListener("submit", async function (event) {
 
   try {
     const data = await ask(prompt);
-    console.log("Backend response:", data);
+    
 
     // ✅ Use the actual field from your backend:
     // Backend response: { success: true, response: 'Hello! How can I assist you today?', ... }
@@ -71,7 +71,7 @@ form.addEventListener("submit", async function (event) {
 
     responseBox.textContent = aiText;
   } catch (err) {
-    console.error("Error calling backend:", err);
+    
     responseBox.textContent = "Error talking to AI.";
   }
 
