@@ -16,13 +16,15 @@ const aiHELLO = [
   "Something on ur mind?",
   "Ready when u r!",
   "Bonjoir!",
-  "Hola!!!"
+  "Hola!!!",
+  "How's it going?"
 ];
 
 const more2say = [
   "What's next?",
   "Anything else?",
-  "Follow up!"
+  "Follow up!",
+  "Blah blah blah"
 ];
 
 function say(SOMETHING) {
@@ -53,6 +55,12 @@ form.addEventListener("submit", async function (event) {
   responseBox.textContent = "Thinking...";
   responseBox.classList.add("visible");
 
+    if (!hasMovedLayout) {
+    hasMovedLayout = true;
+    typeBox.classList.add("fixed-bottom");
+    title.classList.add("top-title");
+    }
+
   try {
     const data = await ask(prompt);
     console.log("Backend response:", data);
@@ -70,12 +78,6 @@ form.addEventListener("submit", async function (event) {
   textInput.value = "";
   textInput.placeholder = say(more2say);
   textInput.focus();
-
-  if (!hasMovedLayout) {
-    hasMovedLayout = true;
-    typeBox.classList.add("fixed-bottom");
-    title.classList.add("top-title");
-  }
 });
 
 // “New Chat” button reloads the page
