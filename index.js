@@ -16,15 +16,13 @@ const aiHELLO = [
   "Something on ur mind?",
   "Ready when u r!",
   "Bonjoir!",
-  "Hola!!!",
-  "How's it going?"
+  "Hola!!!"
 ];
 
 const more2say = [
   "What's next?",
   "Anything else?",
-  "Follow up!",
-  "Blah blah blah"
+  "Follow up!"
 ];
 
 function say(SOMETHING) {
@@ -36,7 +34,7 @@ const textInput = document.getElementById("input");
 const form = document.getElementById("prompty-prompty");
 const typeBox = document.querySelector(".typeee");
 const title = document.querySelector("h1");
-const responseBox = document.getElementById("ai-response");
+const chatMessages = document.getElementById("chat-messages");
 const NEWCHAT = document.getElementById("NEWCHAT");
 
 // Initial placeholder
@@ -45,39 +43,57 @@ textInput.placeholder = say(aiHELLO);
 // Track whether we’ve moved the layout (title up, input down)
 let hasMovedLayout = false;
 
+// Helper: append a message div
+function addMessage(text, role) {
+  const div = document.createElement("div");
+  div.classList.add("message", role); // role: "user", "ai", or "system"
+  div.textContent = text;
+  chatMessages.appendChild(div);
+  // auto-scroll to bottom
+  chatMessages.scrollTop = chatMessages.scrollHeight; // [web:180][web:184]
+}
+
 form.addEventListener("submit", async function (event) {
   event.preventDefault();
 
   const prompt = textInput.value.trim();
   if (!prompt) return;
 
-  // Show “thinking…” in the center
-  responseBox.textContent = "Thinking...";
-  responseBox.classList.add("visible");
+  // Add user message to chat
+  addMessage(prompt, "user");
 
-    if (!hasMovedLayout) {
-    hasMovedLayout = true;
-    typeBox.classList.add("fixed-bottom");
-    title.classList.add("top-title");
-    }
+  // Show “Thinking…” system message
+  const thinkingDiv = document.createElement("div");
+  thinkingDiv.classList.add("message", "system");
+  thinkingDiv.textContent = "Thinking...";
+  chatMessages.appendChild(thinkingDiv);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
 
   try {
     const data = await ask(prompt);
-    
+    console.log("Backend response:", data);
 
-    // ✅ Use the actual field from your backend:
-    // Backend response: { success: true, response: 'Hello! How can I assist you today?', ... }
     const aiText = data.response || "No response.";
 
-    responseBox.textContent = aiText;
+    // Remove “Thinking…” bubble
+    thinkingDiv.remove();
+
+    // Add AI message
+    addMessage(aiText, "ai");
   } catch (err) {
-    
-    responseBox.textContent = "Error talking to AI.";
+    console.error("Error calling backend:", err);
+    thinkingDiv.textContent = "Error talking to AI.";
   }
 
   textInput.value = "";
   textInput.placeholder = say(more2say);
   textInput.focus();
+
+  if (!hasMovedLayout) {
+    hasMovedLayout = true;
+    typeBox.classList.add("fixed-bottom");
+    title.classList.add("top-title");
+  }
 });
 
 // “New Chat” button reloads the page
