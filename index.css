@@ -42,6 +42,22 @@ h1 {
 .typeee {
   padding: 20px;
   font-family: "Lexend", sans-serif;
+
+  transform: translateY(100%);
+  opacity: 0;
+
+  animation slide-up 0.6s ease-out 1s forwards;
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform:translateY(0);
+    opacity: 1;
+  }
 }
 
 input[type="text"] {
