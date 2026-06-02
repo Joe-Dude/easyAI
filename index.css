@@ -20,15 +20,25 @@ h1 {
   z-index: 1;
   font-size: 60px;
   opacity: 0;
-  animation: fadeIn 1.5s ease-in 0.5s forwards;
+  animation: fadeThenSlide 2.5s ease-in forwards;
 }
 
-@keyframes fadeIn {
-  from {
+@keyframes fadeThenSlide {
+  0% {
     opacity: 0;
+    transform: translateY(0);
   }
-  to {
+  60% {
     opacity: 1;
+    transform: translateY(0);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-50);
   }
 }
 
