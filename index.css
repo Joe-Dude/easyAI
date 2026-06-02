@@ -24,12 +24,8 @@ h1 {
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 .glowthingy {
@@ -45,21 +41,21 @@ h1 {
 
 .typeee {
   padding: 20px;
-  font-family: Lexend, sans-serif;
+  font-family: "Lexend", sans-serif;
 }
 
 input[type="text"] {
   padding: 10px;
   font-size: 16px;
-  border: 2px solid rgb(0, 155, 0)
+  border: 2px solid rgb(0, 155, 0);
   border-radius: 5px;
   width: 250px;
   outline: none;
 }
 
-input:[type="text"]:focus {
-  border-color:rgb(0, 255, 0)
-  background-color:transparent;
+input[type="text"]:focus {
+  border-color: rgb(0, 255, 0);
+  background-color: transparent;
 }
 
 input[type="submit"] {
@@ -69,11 +65,12 @@ input[type="submit"] {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  background-color:rgb(0, 155, 0)
-  color:black
+  background-color: rgb(0, 155, 0);
+  color: black;
+  transition: transform 0.2s ease-in-out;
 }
 
 input[type="submit"]:hover {
-  background-color:rgb(0, 255, 0);
+  background-color: rgb(0, 255, 0);
   transform: scale(1.1);
 }
