@@ -27,7 +27,6 @@ h1 {
 h1.top-title {
   position: fixed;
   top: 10px;
-  left: 50%;
 }
 
 @keyframes fadeIn {
