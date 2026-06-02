@@ -116,3 +116,20 @@ input[type="submit"]:hover {
   margin-left: 0;
   z-index: 10;
 }
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: rgb(0, 155, 0);
+  color: black;
+  transition: transform 0.2s ease-in-out;
+}
+
+button:hover {
+  background-color: rgb(0, 255, 0);
+  transform: scale(1.1);
+}
