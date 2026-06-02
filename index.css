@@ -42,3 +42,37 @@ h1 {
   box-shadow: 0 -20px 200px 50px rgba(0, 255, 0, 0.5);
   z-index: 0;
 }
+
+.typeee {
+  padding: 20px;
+  font-family: Lexend, sans-serif;
+}
+
+input[type="text"] {
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid rgb(0, 155, 0)
+  border-radius: 5px;
+  width: 250px;
+  outline: none;
+}
+
+input:[type="text"]:focus {
+  border-color:rgb(0, 255, 0)
+  background-color:transparent;
+}
+
+input[type="submit"] {
+  padding: 10px 20px;
+  font-size: 16px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color:rgb(0, 155, 0)
+  color:black
+}
+
+input[type="submit"]:hover {
+  background-color:rgb(0, 255, 0);
+}
