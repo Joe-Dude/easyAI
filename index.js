@@ -42,3 +42,9 @@ form.addEventListener("submit", function(event) {
     title.classList.add("top-title");
   }
 });
+
+const NEWCHAT = document.getElementById("NEWCHAT");
+
+NEWCHAT.addEventListener("click", () => {
+    window.location.reload();
+});
