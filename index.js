@@ -20,10 +20,19 @@ const textInput = document.getElementById("input");
 textInput.placeholder = say(aiHELLO);
 
 const form = document.getElementById("prompty-prompty");
+const typeBox = document.querySelector(".typeee");
+
+let hasMovedToBottom = false;
+
 form.addEventListener("submit", function(event) {
   event.preventDefault();
 
   textInput.value = "";
   textInput.placeholder = say(more2say);
   textInput.focus();
+
+  if (!hasMovedToBottom) {
+    hasMovedToBottom = true;
+    typeBox.classList.add("fixed-bottom");
+  }
 });
