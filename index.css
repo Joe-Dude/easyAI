@@ -20,7 +20,7 @@ h1 {
   z-index: 1;
   font-size: 60px;
   opacity: 0;
-  animation: fadeIn 1s ease-in forwards;
+  animation: fadeIn 1s ease-in 0.5s forwards;
 }
 
 @keyframes fadeIn {
