@@ -21,6 +21,7 @@ textInput.placeholder = say(aiHELLO);
 
 const form = document.getElementById("prompty-prompty");
 const typeBox = document.querySelector(".typeee");
+const title = document.querySelector("h1"); // <--- new
 
 let hasMovedToBottom = false;
 
@@ -33,6 +34,11 @@ form.addEventListener("submit", function(event) {
 
   if (!hasMovedToBottom) {
     hasMovedToBottom = true;
+
+    // Move input box to bottom
     typeBox.classList.add("fixed-bottom");
+
+    // Move title to top
+    title.classList.add("top-title");
   }
 });

@@ -21,6 +21,14 @@ h1 {
   font-size: 60px;
   opacity: 0;
   animation: fadeIn 1s ease-in 0.5s forwards;
+  transition: transform 0.6s ease-out;
+}
+
+h1.top-title {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform:translateX(-50%);
 }
 
 @keyframes fadeIn {
