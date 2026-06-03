@@ -122,6 +122,16 @@ input[type="submit"]:hover {
   transform: scale(1.1);
 }
 
+input[type="text"]:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+input[type="submit"]:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
 #NEWCHAT {
   position: fixed;
   top: 10px;

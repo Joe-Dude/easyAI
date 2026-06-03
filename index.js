@@ -36,6 +36,7 @@ const typeBox = document.querySelector(".typeee");
 const title = document.querySelector("h1");
 const chatMessages = document.getElementById("chat-messages");
 const NEWCHAT = document.getElementById("NEWCHAT");
+const submitButton = form.querySelector(`input[type="submit"]`)
 
 // Initial placeholder
 textInput.placeholder = say(aiHELLO);
@@ -54,45 +55,46 @@ function addMessage(text, role) {
 }
 
 form.addEventListener("submit", async function (event) {
-  event.preventDefault();
+    event.preventDefault();
+    
+    const prompt = textInput.value.trim();
+    if (!prompt) return;
 
-  const prompt = textInput.value.trim();
-  if (!prompt) return;
+    textInput.disabled = true;
+    submitButton.disabled = true;
 
     if (!hasMovedLayout) {
-    hasMovedLayout = true;
-    typeBox.classList.add("fixed-bottom");
-    title.classList.add("top-title");
-  }
+        hasMovedLayout = true;
+        typeBox.classList.add("fixed-bottom");
+        title.classList.add("top-title");
+    }
 
-  // Add user message to chat
-  addMessage(prompt, "user");
+    addMessage(prompt, "user");
 
-  // Show “Thinking…” system message
-  const thinkingDiv = document.createElement("div");
-  thinkingDiv.classList.add("message", "system");
-  thinkingDiv.textContent = "Thinking...";
-  chatMessages.appendChild(thinkingDiv);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
+    const thinkingDiv = document.createElement("div");
+    thinkingDiv.classList.add("message", "system");
+    thinkingDiv.textContent = "Thinking...";
+    chatMessages.appendChild(thinkingDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
 
-  try {
-    const data = await ask(prompt);
+    try {
+        const data = await ask(prompt);
 
-    const aiText = data.response || "No response.";
+        const aiText = data.response || "No response.";
 
-    // Remove “Thinking…” bubble
-    thinkingDiv.remove();
+        thinkingDiv.remove();
 
-    // Add AI message
-    addMessage(aiText, "ai");
-  } catch (err) {
-    console.error("Error calling backend:", err);
-    thinkingDiv.textContent = "Error talking to AI.";
-  }
+        addMessage(aiText, "ai");
+    } catch (err) {
+        console.error("Error calling backend:", err);
+    } finally {
+        textInput.disabled = false;
+        submitButton.disabled = false;
+        textInput.focus();
+    }
 
-  textInput.value = "";
-  textInput.placeholder = say(more2say);
-  textInput.focus();
+    textInput.value = "";
+    textInput.placeholder = say(more2say);
 });
 
 // “New Chat” button reloads the page
