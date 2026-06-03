@@ -157,8 +157,8 @@ button:hover {
 
 #chat-messages {
   position: fixed;
-  top: 150px;
-  bottom: 150px;
+  top: 500px;
+  bottom: 80px;
   left: 50%;
   transform: translateX(-50%);
   width: min(800px, 90vw);
