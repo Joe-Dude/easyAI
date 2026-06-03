@@ -83,6 +83,7 @@ input[type="text"] {
   color:rgb(0, 155, 0);
   background-color: black;
   caret-color: rgb(0, 255, 0);
+  caret-shape: block;
 }
 
 input[type="text"]:focus {
@@ -90,6 +91,7 @@ input[type="text"]:focus {
   color:rgb(0, 155, 0);
   background-color: black;
   caret-color: rgb(0, 255, 0);
+  caret-shape: block;
 }
 
 input[type="submit"] {
