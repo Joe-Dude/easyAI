@@ -84,6 +84,17 @@ input[type="text"] {
   background-color: black;
   caret-color: rgb(0, 255, 0);
   caret-shape: block;
+  caret-animation: manual;
+  animation: carrot 3s infinite
+}
+
+@keyframes carrot {
+  0%   { caret-color:rgb(0, 155, 0); }
+  20%  { caret-color:transparent ; }
+  40%  { caret-color:rgb(0, 255, 0); }
+  60%  { caret-color:transparent; }
+  80%  { caret-color:white ; }
+  100% { caret-color:transparent ; }
 }
 
 input[type="text"]:focus {
