@@ -168,6 +168,23 @@ button:hover {
   box-sizing: border-box;
 }
 
+#chat-messages::-webkit-scrollbar {
+  width: 4px;
+}
+
+#chat-messages::-webkit-scrollbar-track {
+  background:black;
+}
+
+#chat-messages::-webkit-scrollbar-thumb {
+  background:rgb(0, 155, 0);
+  border-radius: 4px;
+}
+
+#chat-messages::-webkit-scrollbar-thumb:hover {
+  background:rgb(0, 255, 0)
+}
+
 .message {
   max-width: 75%;
   margin: 6px 0;
