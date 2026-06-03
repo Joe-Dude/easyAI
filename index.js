@@ -59,6 +59,12 @@ form.addEventListener("submit", async function (event) {
   const prompt = textInput.value.trim();
   if (!prompt) return;
 
+    if (!hasMovedLayout) {
+    hasMovedLayout = true;
+    typeBox.classList.add("fixed-bottom");
+    title.classList.add("top-title");
+  }
+
   // Add user message to chat
   addMessage(prompt, "user");
 
@@ -71,7 +77,6 @@ form.addEventListener("submit", async function (event) {
 
   try {
     const data = await ask(prompt);
-    console.log("Backend response:", data);
 
     const aiText = data.response || "No response.";
 
@@ -88,12 +93,6 @@ form.addEventListener("submit", async function (event) {
   textInput.value = "";
   textInput.placeholder = say(more2say);
   textInput.focus();
-
-  if (!hasMovedLayout) {
-    hasMovedLayout = true;
-    typeBox.classList.add("fixed-bottom");
-    title.classList.add("top-title");
-  }
 });
 
 // “New Chat” button reloads the page
