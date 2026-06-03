@@ -85,16 +85,16 @@ input[type="text"] {
   caret-color: rgb(0, 255, 0);
   caret-shape: block;
   caret-animation: manual;
-  animation: carrot 3s infinite
+  animation: carrot 4s infinite;
 }
 
 @keyframes carrot {
   0%   { caret-color:rgb(0, 155, 0); }
-  20%  { caret-color:transparent ; }
-  40%  { caret-color:rgb(0, 255, 0); }
-  60%  { caret-color:transparent; }
-  80%  { caret-color:white ; }
-  100% { caret-color:transparent ; }
+  17%  { caret-color:transparent ; }
+  34%  { caret-color:rgb(0, 255, 0); }
+  51%  { caret-color:transparent; }
+  68%  { caret-color:white ; }
+  85% { caret-color:transparent ; }
 }
 
 input[type="text"]:focus {
