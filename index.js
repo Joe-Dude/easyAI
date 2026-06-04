@@ -80,7 +80,12 @@ form.addEventListener("submit", async function (event) {
     title.classList.add("top-title");
   }
 
+  // 1) Show message in UI
   addMessage(prompt, "user");
+
+  // 2) Add user message to history
+  chatHistory.push({ role: "user", text: prompt });
+  saveHistory();
 
   const thinkingDiv = document.createElement("div");
   thinkingDiv.classList.add("message", "system");
@@ -89,17 +94,18 @@ form.addEventListener("submit", async function (event) {
   chatMessages.scrollTop = chatMessages.scrollHeight;
 
   try {
-    const fullPrompt = buildPrompt(prompt);
+    // 3) Build prompt ONLY from chatHistory
+    const fullPrompt = buildPrompt();
     const data = await ask(fullPrompt);
 
     const aiText = data.response || "No response.";
 
     thinkingDiv.remove();
 
+    // 4) Show AI message
     addMessage(aiText, "ai");
 
-    // Push both user and AI messages AFTER getting the response
-    chatHistory.push({ role: "user", text: prompt });
+    // 5) Store AI message in history
     chatHistory.push({ role: "ai", text: aiText });
     saveHistory();
   } catch (err) {
