@@ -1,16 +1,13 @@
-// Backend endpoint (Lovable backend)
 const API_URL = "https://project--c7237b6a-ebb6-4b56-9707-fca22763621d.lovable.app/api/public/chat";
 
-async function ask(messages) {
-    const res = await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages }),
-    });
-    return res.json();
+async function ask(message) {
+  const res = await fetch(API_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message }),
+  });
+  return res.json();
 }
-
-const chatHistory = [];
 
 // Random placeholder lists
 const aiHELLO = [
@@ -57,60 +54,46 @@ function addMessage(text, role) {
 }
 
 form.addEventListener("submit", async function (event) {
-  event.preventDefault();
+    event.preventDefault();
+    
+    const prompt = textInput.value.trim();
+    if (!prompt) return;
 
-  const prompt = textInput.value.trim();
-  if (!prompt) return;
+    textInput.disabled = true;
+    submitButton.disabled = true;
 
-  // Disable input and button while AI is thinking
-  textInput.disabled = true;
-  submitButton.disabled = true;
+    if (!hasMovedLayout) {
+        hasMovedLayout = true;
+        typeBox.classList.add("fixed-bottom");
+        title.classList.add("top-title");
+    }
 
-  if (!hasMovedLayout) {
-    hasMovedLayout = true;
-    typeBox.classList.add("fixed-bottom");
-    title.classList.add("top-title");
-  }
+    addMessage(prompt, "user");
 
-  // 1) Add user message to UI
-  addMessage(prompt, "user");
+    const thinkingDiv = document.createElement("div");
+    thinkingDiv.classList.add("message", "system");
+    thinkingDiv.textContent = "Thinking...";
+    chatMessages.appendChild(thinkingDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
 
-  // 2) Add user message to history
-  chatHistory.push({ role: "user", content: prompt });
+    try {
+        const data = await ask(prompt);
 
-  // 3) Show “Thinking…” system message
-  const thinkingDiv = document.createElement("div");
-  thinkingDiv.classList.add("message", "system");
-  thinkingDiv.textContent = "Thinking...";
-  chatMessages.appendChild(thinkingDiv);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
+        const aiText = data.response || "No response.";
 
-  try {
-    // 4) Ask backend with full history
-    const data = await ask(chatHistory);
-    console.log("Backend response:", data);
+        thinkingDiv.remove();
 
-    const aiText = data.response || "No response.";
+        addMessage(aiText, "ai");
+    } catch (err) {
+        console.error("Error calling backend:", err);
+    } finally {
+        textInput.disabled = false;
+        submitButton.disabled = false;
+        textInput.focus();
+    }
 
-    // 5) Remove “Thinking…” bubble
-    thinkingDiv.remove();
-
-    // 6) Add AI message to UI
-    addMessage(aiText, "ai");
-
-    // 7) Add AI message to history
-    chatHistory.push({ role: "assistant", content: aiText });
-  } catch (err) {
-    console.error("Error calling backend:", err);
-    thinkingDiv.textContent = "Error talking to AI.";
-  } finally {
-    textInput.disabled = false;
-    submitButton.disabled = false;
-    textInput.focus();
-  }
-
-  textInput.value = "";
-  textInput.placeholder = say(more2say);
+    textInput.value = "";
+    textInput.placeholder = say(more2say);
 });
 
 // “New Chat” button reloads the page
