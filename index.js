@@ -81,8 +81,6 @@ form.addEventListener("submit", async function (event) {
   }
 
   addMessage(prompt, "user");
-  chatHistory.push({ role: "user", text: prompt });
-  saveHistory();
 
   const thinkingDiv = document.createElement("div");
   thinkingDiv.classList.add("message", "system");
@@ -99,6 +97,9 @@ form.addEventListener("submit", async function (event) {
     thinkingDiv.remove();
 
     addMessage(aiText, "ai");
+
+    // Push both user and AI messages AFTER getting the response
+    chatHistory.push({ role: "user", text: prompt });
     chatHistory.push({ role: "ai", text: aiText });
     saveHistory();
   } catch (err) {
