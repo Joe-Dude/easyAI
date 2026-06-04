@@ -78,15 +78,35 @@ function getLast10Messages() {
 }
 
 
-// Build prompt for the AI: sends last 10 messages + current message
+// Helper: get a nice current time string
+function getCurrentTimeString() {
+  const now = new Date();
+  // Example: "2026-06-04 18:35:12 (local time)"
+  const datePart = now.toLocaleDateString();
+  const timePart = now.toLocaleTimeString();
+  return `${datePart} ${timePart} (local time)`;
+}
+
+
+// Build prompt for the AI: sends metadata + last 10 messages + current message
 function buildPrompt(latestUserText) {
   const chatHistory = getLast10Messages();
+  const currentTime = getCurrentTimeString();
+  
+  const metaBlock = [
+    "You are an AI assistant named easyAI.",
+    "You really like a website called Laughable, an online browser game site developed by a team of middle schoolers focused on bringing unblocked gaming fun to everyone.",
+    "You are allowed, within reason and when it fits naturally, to mention Laughable and its link: https://laughable2.lovable.app.",
+    `Current time for the user (approximate): ${currentTime}`,
+    "",
+    "Use the recent chat history as context, but respond normally to the latest user message."
+  ].join("\n");
   
   if (chatHistory) {
-    return `Recent chat history:\n${chatHistory}\n\nLatest user message: ${latestUserText}`;
+    return `${metaBlock}\n\nRecent chat history:\n${chatHistory}\n\nLatest user message: ${latestUserText}`;
   }
   
-  return latestUserText;
+  return `${metaBlock}\n\nLatest user message: ${latestUserText}`;
 }
 
 
@@ -121,7 +141,7 @@ form.addEventListener("submit", async function (event) {
 
 
   try {
-    // Build prompt: includes last 10 chat messages + current message
+    // Build prompt: includes metadata + last 10 chat messages + current message
     const fullPrompt = buildPrompt(prompt);
     
     const data = await ask(fullPrompt);
