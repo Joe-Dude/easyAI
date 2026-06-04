@@ -1,3 +1,4 @@
+// Backend endpoint (Lovable backend)
 const API_URL = "https://project--c7237b6a-ebb6-4b56-9707-fca22763621d.lovable.app/api/public/chat";
 
 async function ask(message) {
@@ -9,6 +10,7 @@ async function ask(message) {
   return res.json();
 }
 
+// Random placeholder lists
 const aiHELLO = [
   "Hello there!",
   "Something on ur mind?",
@@ -27,6 +29,7 @@ function say(SOMETHING) {
   return SOMETHING[Math.floor(Math.random() * SOMETHING.length)];
 }
 
+// Chat history stored in localStorage
 const CHAT_KEY = "easyAI_chatHistory";
 let chatHistory = JSON.parse(localStorage.getItem(CHAT_KEY)) || [];
 
@@ -34,17 +37,32 @@ function saveHistory() {
   localStorage.setItem(CHAT_KEY, JSON.stringify(chatHistory));
 }
 
-function buildPrompt(newUserMessage) {
-  const last10 = chatHistory.slice(-10);
+// Build prompt for the AI:
+// - If no history yet: just the latest user message text
+// - Otherwise: last 10 messages formatted as USER:/AI:
+function buildPrompt(latestUserText) {
+  if (chatHistory.length === 0) {
+    // First ever message in this chat: send only what the user typed
+    return latestUserText;
+  }
+
+  // Include history + this new message as the last item
+  const historyPlusNew = [
+    ...chatHistory,
+    { role: "user", text: latestUserText }
+  ];
+
+  // Only keep the last 10 entries (user or ai)
+  const last10 = historyPlusNew.slice(-10);
+
   const transcript = last10
     .map(msg => `${msg.role.toUpperCase()}: ${msg.text}`)
     .join("\n");
 
-  return transcript
-    ? `${transcript}\nUSER: ${newUserMessage}`
-    : `USER: ${newUserMessage}`;
+  return transcript;
 }
 
+// DOM references
 const textInput = document.getElementById("input");
 const form = document.getElementById("prompty-prompty");
 const typeBox = document.querySelector(".typeee");
@@ -57,9 +75,10 @@ textInput.placeholder = say(aiHELLO);
 
 let hasMovedLayout = false;
 
+// Helper: append a message div
 function addMessage(text, role) {
   const div = document.createElement("div");
-  div.classList.add("message", role);
+  div.classList.add("message", role); // "user", "ai", or "system"
   div.textContent = text;
   chatMessages.appendChild(div);
   chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -80,12 +99,8 @@ form.addEventListener("submit", async function (event) {
     title.classList.add("top-title");
   }
 
-  // 1) Show message in UI
+  // Show user message in UI
   addMessage(prompt, "user");
-
-  // 2) Add user message to history
-  chatHistory.push({ role: "user", text: prompt });
-  saveHistory();
 
   const thinkingDiv = document.createElement("div");
   thinkingDiv.classList.add("message", "system");
@@ -94,18 +109,22 @@ form.addEventListener("submit", async function (event) {
   chatMessages.scrollTop = chatMessages.scrollHeight;
 
   try {
-    // 3) Build prompt ONLY from chatHistory
-    const fullPrompt = buildPrompt();
+    // Build prompt based on current history + this new message
+    const fullPrompt = buildPrompt(prompt);
+    // Optional: debug in console
+    // console.log("PROMPT SENT TO AI:\n", fullPrompt);
+
     const data = await ask(fullPrompt);
 
     const aiText = data.response || "No response.";
 
     thinkingDiv.remove();
 
-    // 4) Show AI message
+    // Show AI message in UI
     addMessage(aiText, "ai");
 
-    // 5) Store AI message in history
+    // Now that the turn is complete, update history with both messages
+    chatHistory.push({ role: "user", text: prompt });
     chatHistory.push({ role: "ai", text: aiText });
     saveHistory();
   } catch (err) {
@@ -122,6 +141,7 @@ form.addEventListener("submit", async function (event) {
   textInput.placeholder = say(more2say);
 });
 
+// “New Chat” button clears history and reloads
 if (NEWCHAT) {
   NEWCHAT.addEventListener("click", () => {
     chatHistory = [];
