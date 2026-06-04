@@ -1,3 +1,4 @@
+// Backend endpoint (Lovable backend)
 const API_URL = "https://project--c7237b6a-ebb6-4b56-9707-fca22763621d.lovable.app/api/public/chat";
 
 async function ask(message) {
@@ -8,6 +9,7 @@ async function ask(message) {
   });
   return res.json();
 }
+
 
 // Random placeholder lists
 const aiHELLO = [
