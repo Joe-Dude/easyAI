@@ -10,6 +10,10 @@ easyAI is a basic AI chatbot. Messages are free and infinite, rate limiting is h
 
 - Free chat
 - Infinite messages
+- Bot can view past 10 messages as reference
+- Bot can tell time
+- Bot knows what day it is
+- Bot randomly seems to recommend a gaming website... it must be amazing for the bot to like it so much
 
 # Attributions
 
