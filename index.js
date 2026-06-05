@@ -20,7 +20,13 @@ const aiHELLO = [
 const more2say = [
   "What's next?",
   "Anything else?",
-  "Follow up!"
+  "Follow up!",
+  "Keep talking",
+  "Another q for me to a?",
+  "I've got the answer...",
+  "I'll never not never take over the world... jk",
+  "Be nice to ur pc",
+  "Check out my readme to see the cool stuff I can do!"
 ];
 
 function say(SOMETHING) {
